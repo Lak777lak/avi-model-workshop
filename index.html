@@ -907,7 +907,7 @@ img, video { max-width: 100%; height: auto; }
                         Comparatif des plateformes que nous préparons le plus souvent. Notre cœur d'activité reste les jets à turbines de haute vitesse.
                     </p>
                     <figure class="overflow-hidden rounded-sm shadow-inner border border-slate-200 dark:border-slate-700">
-                        <img src="1_41PM.jpeg" alt="Classes de performance" class="w-full h-full object-cover">
+                        <img src="images/1_41PM.jpeg" alt="Classes de performance" class="w-full h-full object-cover">
                     </figure>
                 </div>
                 <div class="fade-up visible">
@@ -922,7 +922,7 @@ img, video { max-width: 100%; height: auto; }
                         Nos cycles coordonnent mécanique, électronique et avionique pour garantir une remise en main prête à voler.
                     </p>
                     <figure class="overflow-hidden rounded-sm mb-6">
-                        <img src="1_43PM.jpeg" alt="Processus atelier" class="w-full h-64 object-cover">
+                        <img src="images/1_43PM.jpeg" alt="Processus atelier" class="w-full h-64 object-cover">
                     </figure>
                 </div>
             </div>
@@ -944,10 +944,10 @@ img, video { max-width: 100%; height: auto; }
                 </div>
                 <div class="gallery-stack">
                     <img src="https://image.pollinations.ai/prompt/RC%20jet%20plane%20construction%20carbon%20fiber%20parts?nologo=true" alt="Structure carbone" />
-                    <img src="01-54.jpg" alt="Atelier Mougins" />
+                    <img src="images/01-54.jpg" alt="Atelier Mougins" />
                 </div>
                 <div class="gallery-tall">
-                    <img src="2_46PM.jpeg" alt="Décollage" />
+                    <img src="images/2_46PM.jpeg" alt="Décollage" />
                 </div>
             </div>
         </div>
@@ -1019,18 +1019,21 @@ img, video { max-width: 100%; height: auto; }
                 <div class="grid md:grid-cols-2">
                     <div class="p-8 md:p-12">
                         <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white mb-6">Nous contacter</h2>
-                        <form class="space-y-4">
+                        <form class="space-y-4" id="contact-form" onsubmit="return false;">
                             <div>
                                 <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
-                                <input type="email" id="email" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="bonjour@mirkit.fr">
+                                <input type="email" id="email" required class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="bonjour@mirkit.fr">
                             </div>
                             <div>
                                 <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Message</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="Je souhaite faire entretenir ma maquette..." spellcheck="false"></textarea>
+                                <textarea id="message" required rows="4" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="Je souhaite faire entretenir ma maquette..." spellcheck="false"></textarea>
                             </div>
-                            <button type="button" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-4 rounded-sm transition-colors shadow-lg shadow-brand-500/30">
-                                Envoyer la demande
-                            </button>
+                            <div>
+                                <button id="contact-submit" type="button" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-4 rounded-sm transition-colors shadow-lg shadow-brand-500/30">
+                                    Envoyer la demande
+                                </button>
+                            </div>
+                            <p id="form-status" class="text-sm mt-2 text-slate-600 dark:text-slate-400" aria-live="polite"></p>
                         </form>
                     </div>
                     <div class="bg-slate-100 dark:bg-slate-800 p-8 md:p-12 flex flex-col justify-between">
@@ -1090,7 +1093,51 @@ img, video { max-width: 100%; height: auto; }
         </div>
     </footer>
 
-    <!-- Scripts -->
-    
+</body>
+        <!-- Scripts -->
+        <script>
+            (function(){
+                // Theme toggle
+                const html = document.documentElement;
+                const themeToggle = document.getElementById('theme-toggle');
+                function setTheme(t){
+                    if(t==='dark') html.classList.add('dark'); else html.classList.remove('dark');
+                    try{ localStorage.setItem('theme', t); }catch(e){}
+                }
+                function initTheme(){
+                    try{
+                        const stored = localStorage.getItem('theme');
+                        if(stored){ setTheme(stored); return; }
+                    }catch(e){}
+                    const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    setTheme(prefers ? 'dark' : 'light');
+                }
+                if(themeToggle){
+                    themeToggle.addEventListener('click', function(){
+                        const isDark = html.classList.contains('dark');
+                        setTheme(isDark ? 'light' : 'dark');
+                    });
+                }
+                initTheme();
+
+                // Contact form: open mail client with prefilled body
+                const btn = document.getElementById('contact-submit');
+                const status = document.getElementById('form-status');
+                if(btn){
+                    btn.addEventListener('click', function(){
+                        const email = document.getElementById('email') && document.getElementById('email').value.trim();
+                        const message = document.getElementById('message') && document.getElementById('message').value.trim();
+                        if(!email || !message){
+                            if(status) status.textContent = 'Veuillez saisir votre email et un message.';
+                            return;
+                        }
+                        const subject = encodeURIComponent('Demande depuis AtelierRC.mirkit.fr');
+                        const body = encodeURIComponent('Email: ' + email + '\n\n' + message);
+                        if(status) status.textContent = 'Ouverture du client mail...';
+                        window.location.href = `mailto:bonjour@mirkit.fr?subject=${subject}&body=${body}`;
+                    });
+                }
+            })();
+        </script>
 </body>
 </html>
