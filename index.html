@@ -1026,22 +1026,9 @@ img, video { max-width: 100%; height: auto; }
                           2) Replace the FORM_ENDPOINT value below with your real endpoint.
                           3) In Formspree dashboard, set the recipient to bonjour@mirkit.fr and enable autoresponder (confirmation to sender).
                         -->
-                        <form class="space-y-4" id="contact-form" action="https://formspree.io/f/yourFormID" method="POST">
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
-                                <input type="email" id="email" name="_replyto" required class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="vous@exemple.com">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Message</label>
-                                <textarea id="message" name="message" required rows="4" class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none text-slate-900 dark:text-white" placeholder="Je souhaite faire entretenir ma maquette..." spellcheck="false"></textarea>
-                            </div>
-                            <div>
-                                <button id="contact-submit" type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-4 rounded-sm transition-colors shadow-lg shadow-brand-500/30">
-                                    Envoyer la demande
-                                </button>
-                            </div>
-                            <p id="form-status" class="text-sm mt-2 text-slate-600 dark:text-slate-400" aria-live="polite"></p>
-                        </form>
+                        <!-- HubSpot form embed (portal 146788171, form 31b69358-4a8f-4deb-8237-4a6866ae2ffb) -->
+                        <script src="https://js-eu1.hsforms.net/forms/embed/146788171.js" defer></script>
+                        <div class="hs-form-frame" data-region="eu1" data-form-id="31b69358-4a8f-4deb-8237-4a6866ae2ffb" data-portal-id="146788171"></div>
                     </div>
                     <div class="bg-slate-100 dark:bg-slate-800 p-8 md:p-12 flex flex-col justify-between">
                         <div>
